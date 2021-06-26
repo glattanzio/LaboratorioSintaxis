@@ -26,8 +26,9 @@ def analizar_palabra(n):
         return "<corder>"
 
 '''def es_id(n):
-def es_cte(n):
-def es_operador(n):'''
+def es_cte(n):'''
+def es_operador(n):
+    return (n=="=" or n=="+" or n=="*")
 
 '''inicio programa'''
 cadena = ["aux1 = 12 para i desde 9 hasta 19 { mostrar aux1 + i }"]
