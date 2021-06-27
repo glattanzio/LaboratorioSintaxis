@@ -61,11 +61,12 @@ def es_operador(n):
     return (n=="=" or n=="+" or n=="*")
 
 '''inicio programa'''
-cadena = ["aux1 = 12 para i desde 9 hasta 19 { mostrar aux1 + i }"]
+cadena = ["aux1 = 12 para i desde 9 hasta 19 { mostrar aux1 + i }", "si ( x = 3 ) entonces { mostrar hola }", "si ( x = 3 ) entonces { mostrar hola } sino { mostrar python }", "num = 32", "mostrar ( 4 + 2 )", "para i desde 10 hasta 20 { mostrar ( i * 2 ) }"]
 cadena_tokens =[]
 for x in range(len(cadena)):
     lista = cadena[x].split(" ")
     cadena_tokens.append("")
     for i in range(len(lista)):
             cadena_tokens[x] = cadena_tokens[x] + analizar_palabra(lista[i])
-print(cadena_tokens[0])
+for z in range(len(cadena_tokens)):
+    print(cadena_tokens[z])
