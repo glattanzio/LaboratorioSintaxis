@@ -1,6 +1,6 @@
 def analizar_palabra(n):
     print(n)
-    palabrasReservadas =["para", "entonces", "si", "desde", "hasta","sino","mostrar","aceptar"]
+    palabrasReservadas =["para", "entonces", "si", "desde", "hasta","sino","mostrar","aceptar","sinosi"]
     t_id = es_id(n)
     t_cte = es_cte(n)
     t_operador = es_operador(n)
@@ -58,10 +58,10 @@ def es_cte(n):
             return False
     return todos_numericos and contador_puntos <= 1
 def es_operador(n):
-    return (n=="=" or n=="+" or n=="*")
+    return (n=="=" or n=="+" or n=="*" or n=="<" or n==">" or n=="<>")
 
 '''inicio programa'''
-cadena = ["aux1 = 12 para i desde 9 hasta 19 { mostrar aux1 + i }", "si ( x = 3 ) entonces { mostrar hola }", "si ( x = 3 ) entonces { mostrar hola } sino { mostrar python }", "num = 32", "mostrar ( 4 + 2 )", "para i desde 10 hasta 20 { mostrar ( i * 2 ) }"]
+cadena = ["aux1 = 12 para i desde 9 hasta 19 { mostrar aux1 + i }", "si ( x = 3 ) entonces { mostrar hola }","si ( x = 3 ) entonces { mostrar hola } sino { mostrar python }", "num = 32", "mostrar ( 4 + 2 )", "para i desde 10 hasta 20 { mostrar ( i * 2 ) }","si ( x < 2 ) { sinosi ( x < 10 ) } sino { mostrar ( x ) }","si ( x <> 4 ) { mostrar ( x + 1 ) }" ,"boolean = 2 < 3", "var messi = futbolista"]
 cadena_tokens =[]
 for x in range(len(cadena)):
     lista = cadena[x].split(" ")
