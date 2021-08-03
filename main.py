@@ -1,64 +1,75 @@
-def analizar_palabra(n):
-    print(n)
-    palabrasReservadas =["para", "entonces", "si", "desde", "hasta","sino","mostrar","aceptar"]
-    t_id = es_id(n)
-    t_cte = es_cte(n)
-    t_operador = es_operador(n)
-    t_parenizq = n=="("
-    t_parender = n==")"
-    t_corizq = n =="{"
-    t_corder = n== "}"
-    if t_id:
-        if n in palabrasReservadas:
-            return "<"+n+">"
+def automata_id(n):
+    estado_actual = 0
+    estados_finales =[1]
+    for i in n:
+        if estado_actual == 0 and i.isalpha():
+            estado_actual= 1
+        elif estado_actual == 1 and i.isalnum():
+            estado_actual = 1
         else:
-            return "<id>"
-    if t_cte:
-        return"<cte>"
-    if t_operador:
-        return"<operador>"
-    if t_parenizq:
-        return"<parenizq>"
-    if t_parender:
-        return"<parender>"
-    if t_corizq:
-        return "<corizq>"
-    if t_corder:
-        return "<corder>"
-
-def es_id(n):
-    cuerpo_alfanumerico = True
-    primeraEsLetra =n[0].isalpha()
-    for w in range(1,len(n)):
-        if not n[w].isalnum():
-            cuerpo_alfanumerico = False
-    return (cuerpo_alfanumerico and primeraEsLetra)
-def es_cte(n):
-    contador_puntos = 0
-    todos_numericos = True
-    '''valores negativos'''
-    if n[0] =="-":
-        if n[1].isnumeric():
-            for w in range(2,len(n)):
-                if not n[w].isnumeric():
-                    if n[w] == ".":
-                        contador_puntos +=1
-                    else:
-                        todos_numericos =False
+            estado_actual = -1
+            break
+    if estado_actual in estados_finales:
+        return "Cadena aceptada"
+    elif estado_actual == -1:
+        return
     else:
-        '''valores positivos'''
-        if n[0].isnumeric():
-            for w in range(1,len(n)):
-                if not n[w].isnumeric():
-                    if n[w] ==".":
-                        contador_puntos +=1
-                    else:
-                        todos_numericos = False
+        return "cadena no aceptada"
+
+def automata_cte(n):
+    estado_actual = 0
+    estados_finales =[1,2,4]
+    for i in n:
+        if estado_actual == 0 and i == "0":
+            estado_actual = 2
+        elif estado_actual == 0 and i in ["1","2","3","4","5","6","7","8","9"]:
+            estado_actual = 1
+        elif estado_actual == 1 and i in ["0","1","2","3","4","5","6","7","8","9"]:
+            estado_actual = 1
+        elif estado_actual == 1 and i ==".":
+            estado_actual = 3
+        elif estado_actual == 2 and i == ".":
+            estado_actual = 3
+        elif estado_actual == 3 and i in ["0","1","2","3","4","5","6","7","8","9"]:
+            estado_actual = 4
+        elif estado_actual == 4 and i in ["0","1","2","3","4","5","6","7","8","9"]:
+            estado_actual = 4
         else:
-            return False
-    return todos_numericos and contador_puntos <= 1
-def es_operador(n):
+            estado_actual = -1
+            break
+    print(estado_actual)
+    if estado_actual in estados_finales:
+        return "cadena aceptada"
+    else:
+        return"cadena no aceptada"
+
+def automata_op(n):
     return (n=="=" or n=="+" or n=="*")
+
+def automata_parender(n):
+def automata_parenizq(n):
+def automata_corder(n):
+def automata_corizq(n):
+
+def lexer(cadena):
+    tokens = []
+    posicion = 0
+    while posicion <len(cadena):
+        while cadena[posicion].isspace():
+            posicion+=1
+        comienzo_lexema = posicion
+        posibles_tokens = []
+        posibles_tokens_con_uno_mas = []
+        lexema = ""
+        todos_trampa = False
+        while not todos_trampa:
+            todos_trampa = True
+            lexema = cadena[comienzo_lexema:posicion+1]
+            posibles_tokens = posibles_tokens_con_uno_mas
+            posibles_tokens_con_uno_mas = []
+
+            for
+
 
 '''inicio programa'''
 cadena = ["aux1 = 12 para i desde 9 hasta 19 { mostrar aux1 + i }", "si ( x = 3 ) entonces { mostrar hola }", "si ( x = 3 ) entonces { mostrar hola } sino { mostrar python }", "num = 32", "mostrar ( 4 + 2 )", "para i desde 10 hasta 20 { mostrar ( i * 2 ) }"]
@@ -69,4 +80,4 @@ for x in range(len(cadena)):
     for i in range(len(lista)):
             cadena_tokens[x] = cadena_tokens[x] + analizar_palabra(lista[i])
 for z in range(len(cadena_tokens)):
-    print(cadena_tokens[z])
+    print(cadena[z], cadena_tokens[z])
